@@ -30,6 +30,11 @@ import HomeCurrency from "@/components/HomeCurrency.vue";
 import Loader from "@/components/app/Loader.vue";
 export default {
   name: "Home",
+  components: {
+    Loader,
+    HomeBill,
+    HomeCurrency
+  },
   data: () => ({
     loading: true,
     currency: null
@@ -37,11 +42,6 @@ export default {
   async mounted() {
     this.currency =  await this.$store.dispatch('fetchCurrency')
     this.loading = false
-  },
-  components: {
-    Loader,
-    HomeBill,
-    HomeCurrency
   },
   methods: {
     async refresh() {
