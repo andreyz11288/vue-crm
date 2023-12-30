@@ -4,6 +4,7 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
+import tooltipDirective from "@/directives/tooltip.directive";
 import "materialize-css/dist/js/materialize.min";
 import filters from '@/filter/currency.filter'
 
@@ -42,6 +43,7 @@ firebase.auth().onAuthStateChanged(() => {
         vue.config.globalProperties.$filters = filters
         vue.use(store)
         vue.use(router)
+        vue.directive('tooltip', tooltipDirective)
         vue.mount("#app");
     }
 })

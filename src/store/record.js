@@ -9,6 +9,23 @@ export default {
                 commit('setError', e)
                 throw e
             }
+        },
+        async fetchRecords({dispatch, commit}) {
+            try {
+                const uid = await dispatch('getUid')
+                const records = (await firebase.database().ref(`/users/${uid}/records`).once('value')).val()
+                if (records) {
+                    return Object.keys(records).map(key => ({
+                        ...records[key], id:key
+                    }))
+                } else  {
+                   return  []
+                }
+
+            } catch (e) {
+                commit('setError', e)
+                throw e
+            }
         }
     }
 }
