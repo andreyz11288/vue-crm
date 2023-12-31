@@ -1,4 +1,4 @@
-const filters = {
+const filter = {
   currencyFilter(value, currency = 'UAH') {
     return new Intl.NumberFormat('uk-UA', {
       style: 'currency',
@@ -6,4 +6,4 @@ const filters = {
     }).format(value)
   }
 }
-export default filters
+export default filter

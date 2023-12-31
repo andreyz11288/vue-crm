@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Категории</h3>
+      <h3>{{$filters.localize.localizeFilter('Categories')}}</h3>
     </div>
     <section>
       <Loader v-if="loading" />
@@ -14,7 +14,7 @@
             @edited="editCategories"
             :currentCategory="currentCategory"
         />
-        <p v-else class="center">Категорие еще нет</p>
+        <p v-else class="center">{{$filters.localize.localizeFilter('No categories yet')}}</p>
       </div>
     </section>
   </div>

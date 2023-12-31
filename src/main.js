@@ -4,20 +4,18 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
+import localize from "@/filter/localize.filter";
 import tooltipDirective from "@/directives/tooltip.directive";
+import VueAwesomePaginate from "vue-awesome-paginate";
+import "vue-awesome-paginate/dist/style.css";
 import "materialize-css/dist/js/materialize.min";
-import filters from '@/filter/currency.filter'
-
-// Import the functions you need from the SDKs you need
+import filter from '@/filter/currency.filter';
 import firebase from "firebase/compat/app";
 import  "firebase/compat/auth";
 import  "firebase/compat/database";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { createHead } from '@vueuse/head';
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: "AIzaSyAvOtkh1wNiWcsD4FIQuBQXdc3e0CFHxqM",
     authDomain: "vue-crm-111.firebaseapp.com",
@@ -39,10 +37,13 @@ let app
 firebase.auth().onAuthStateChanged(() => {
     if (!app) {
         const vue = createApp(App)
+        const head = createHead()
 
-        vue.config.globalProperties.$filters = filters
+        vue.config.globalProperties.$filters = {filter, localize}
         vue.use(store)
         vue.use(router)
+        vue.use(VueAwesomePaginate)
+        vue.use(head)
         vue.directive('tooltip', tooltipDirective)
         vue.mount("#app");
     }

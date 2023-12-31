@@ -5,7 +5,7 @@
     <Navbar
         @click1="isOpen = !isOpen"
     />
-    <Sidebar :value="isOpen"/>
+    <Sidebar :value="isOpen" :key="locale"/>
 
     <main class="app-content" :class="{full: !isOpen}">
       <div class="app-page">
@@ -14,7 +14,7 @@
     </main>
 
     <div class="fixed-action-btn">
-      <router-link class="btn-floating btn-large blue" to="/record" v-tooltip="'Создать новую запись'">
+      <router-link class="btn-floating btn-large blue" to="/record">
         <i class="large material-icons">add</i>
       </router-link>
     </div>
@@ -26,6 +26,7 @@
 import Navbar from "@/components/app/Navbar.vue";
 import Sidebar from "@/components/app/Sidebar.vue";
 import Loader from "@/components/app/Loader.vue";
+import messages from "@/utils/messages";
 export default {
   name: 'main-layout',
   components: {
@@ -50,6 +51,19 @@ export default {
   },
   methods: {
 
+  },
+  computed: {
+    error() {
+      return this.$store.getters.error
+    },
+    locale() {
+      return this.$store.getters.info.locale
+    }
+  },
+  watch: {
+    error(fbError) {
+      M.toast({html: messages[fbError.code] || 'Что-то пошло не так'})
+    }
   }
 }
 </script>

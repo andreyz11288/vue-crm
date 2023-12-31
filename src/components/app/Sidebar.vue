@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import localize from "@/filter/localize.filter";
 export default {
   props: {
     value: {
@@ -22,23 +23,23 @@ export default {
   data: () => ({
     links: [
       {
-        title: 'Счет',
+        title: localize.localizeFilter('Bill'),
         url:'/'
       },
       {
-        title: 'История',
+        title: localize.localizeFilter('Story'),
         url:'/history'
       },
       {
-        title: 'Планирование',
+        title: localize.localizeFilter('Planning'),
         url:'/planning'
       },
       {
-        title: 'Новая запись',
+        title: localize.localizeFilter('New entry'),
         url:'/record'
       },
       {
-        title: 'Категории',
+        title: localize.localizeFilter('Categories'),
         url:'/categories'
       }
     ],

@@ -2,14 +2,14 @@
   <div class="col s12 m6 l4">
     <div class="card light-blue bill-card">
       <div class="card-content white-text">
-        <span class="card-title">Счет в валюте</span>
+        <span class="card-title">{{$filters.localize.localizeFilter('Bill in currency')}}</span>
 
         <p
             v-for="cur in currencies"
             key="cur"
             class="currency-line">
           <span>
-            {{$filters.currencyFilter(getCurrency(cur), cur)}}
+            {{$filters.filter.currencyFilter(getCurrency(cur), cur)}}
           </span>
         </p>
       </div>

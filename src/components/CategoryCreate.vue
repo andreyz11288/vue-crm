@@ -2,7 +2,7 @@
   <div class="col s12 m6">
     <div>
       <div class="page-subtitle">
-        <h4>Создать</h4>
+        <h4>{{$filters.localize.localizeFilter('Create')}}</h4>
       </div>
 
       <form @submit.prevent="submitHandler">
@@ -13,12 +13,12 @@
               v-model="title"
               :class="{invalid: v$.title.$dirty && v$.title.required.$invalid}"
           >
-          <label for="name">Название</label>
+          <label for="name">{{$filters.localize.localizeFilter('Name')}}</label>
           <span
               v-if="v$.title.$dirty && v$.title.required.$invalid"
               class="helper-text invalid"
           >
-            Введите название категории
+            {{$filters.localize.localizeFilter('Enter category name')}}
           </span>
         </div>
 
@@ -29,17 +29,17 @@
               v-model.number="limit"
               :class="{invalid: v$.limit.$dirty && v$.limit.minValue.$invalid}"
           >
-          <label for="limit">Лимит</label>
+          <label for="limit">{{$filters.localize.localizeFilter('Limit')}}</label>
           <span
               v-if="v$.limit.$dirty && v$.limit.minValue.$invalid"
               class="helper-text invalid"
           >
-            Минимальная величина {{v$.limit.minValue.$params.min}}
+            {{$filters.localize.localizeFilter('Minimum value')}} {{v$.limit.minValue.$params.min}}
           </span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
-          Создать
+          {{$filters.localize.localizeFilter('Create')}}
           <i class="material-icons right">send</i>
         </button>
       </form>
@@ -80,10 +80,10 @@ export default  {
         this.limit= 20
         this.v$.$reset()
         this.$emit('created', category)
-        M.toast({html: 'Категория успешно создана'})
+        M.toast({html: this.$filters.localize.localizeFilter('Category successfully created')})
 
       } catch (e) {
-        M.toast({html: 'Что-то пошло не так'})
+        M.toast({html: this.$filters.localize.localizeFilter('Something went wrong')})
       }
     }
   }

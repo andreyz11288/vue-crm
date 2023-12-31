@@ -14,7 +14,6 @@ export default {
   },
   watch: {
     error(fbError) {
-      console.log(fbError)
       M.toast({html: messages[fbError.code] || 'Что-то пошло не так'})
     }
   }

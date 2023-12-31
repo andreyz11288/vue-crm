@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Новая запись</h3>
+      <h3>{{$filters.localize.localizeFilter('New entry')}}</h3>
     </div>
 
     <Loader v-if="loading" />
 
-    <p v-else-if="!categories.length" class="center">Категорий пока нет. <router-link to="/categories">Добавить навую категорию</router-link></p>
+    <p v-else-if="!categories.length" class="center">{{$filters.localize.localizeFilter('No categories yet')}}. <router-link to="/categories">{{$filters.localize.localizeFilter('Add a new category')}}</router-link></p>
 
     <form v-else class="form" @submit.prevent="handleSubmit">
       <div class="input-field" >
@@ -19,7 +19,7 @@
             {{c.title}}
           </option>
         </select>
-        <label>Выберите категорию</label>
+        <label>{{$filters.localize.localizeFilter('Add a new category')}}</label>
       </div>
 
       <p>
@@ -31,7 +31,7 @@
               value="income"
               v-model="type"
           />
-          <span>Доход</span>
+          <span>{{$filters.localize.localizeFilter('Income')}}</span>
         </label>
       </p>
 
@@ -44,7 +44,7 @@
               value="outcome"
               v-model="type"
           />
-          <span>Расход</span>
+          <span>{{$filters.localize.localizeFilter('Outcome')}}</span>
         </label>
       </p>
 
@@ -55,12 +55,12 @@
             v-model.number="amount"
             :class="{invalid: v$.amount.$dirty && v$.amount.minValue.$invalid}"
         >
-        <label for="amount">Сумма</label>
+        <label for="amount">{{$filters.localize.localizeFilter('Sum')}}</label>
         <span
             class="helper-text invalid"
             v-if="v$.amount.$dirty && v$.amount.minValue.$invalid"
         >
-           Минимальная величина {{v$.amount.minValue.$params.min}}
+           {{$filters.localize.localizeFilter('Minimum value')}} {{v$.amount.minValue.$params.min}}
         </span>
       </div>
 
@@ -71,17 +71,17 @@
             v-model="description"
             :class="{invalid: v$.description.$dirty && v$.description.required.$invalid}"
         >
-        <label for="description">Описание</label>
+        <label for="description">{{$filters.localize.localizeFilter('Description')}}</label>
         <span
             class="helper-text invalid"
             v-if="v$.description.$dirty && v$.description.required.$invalid"
         >
-          Введите описание
+          {{$filters.localize.localizeFilter('Enter a description')}}
         </span>
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
-        Создать
+        {{$filters.localize.localizeFilter('Create')}}
         <i class="material-icons right">send</i>
       </button>
     </form>
@@ -154,7 +154,7 @@ export default {
               : this.info.bill - this.amount
 
           await this.$store.dispatch('updateInfo', {bill})
-          M.toast({html: 'Запись успешно создана'})
+          M.toast({html: this.$filters.localize.localizeFilter('Entry created successfully')})
           this.v$.$reset()
           this.amount = 1
           this.description = ''
@@ -163,7 +163,7 @@ export default {
         }
         
       }else {
-        M.toast({html: `Недостаточно средств на счете (${this.amount - this.info.bill})`})
+        M.toast({html: `${this.$filters.localize.localizeFilter('Insufficient funds in the account')} ${this.amount - this.info.bill}`})
       }
     }
   },

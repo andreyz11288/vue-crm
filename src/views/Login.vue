@@ -1,7 +1,7 @@
 <template>
   <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
-      <span class="card-title">Домашняя бухгалтерия</span>
+      <span class="card-title">{{$filters.localize.localizeFilter('Home accounting')}}</span>
       <div class="input-field">
         <input
             id="email"
@@ -13,11 +13,11 @@
         <small
             class="helper-text invalid"
             v-if="v$.email.$dirty && v$.email.required.$invalid"
-        >Поле Email не должно быть пустым</small>
+        >{{$filters.localize.localizeFilter('The Email field must not be empty')}}</small>
         <small
             class="helper-text invalid"
             v-else-if="v$.email.$dirty && v$.email.$invalid"
-        >Введите корретный Email</small>
+        >{{$filters.localize.localizeFilter('Enter correct Email')}}</small>
       </div>
       <div class="input-field">
         <input
@@ -26,18 +26,21 @@
             v-model.trim="password"
             :class="{invalid: (v$.password.$dirty && v$.password.minLength.$invalid) || (v$.password.$dirty && v$.password.required.$invalid)}"
         >
-        <label for="password">Пароль</label>
+        <label for="password">{{$filters.localize.localizeFilter('Password')}}</label>
         <small
             class="helper-text invalid"
             v-if="v$.password.$dirty && v$.password.required.$invalid"
         >
-          Введите пароль
+          {{$filters.localize.localizeFilter('Enter password')}}
         </small>
         <small
             class="helper-text invalid"
             v-else-if="v$.password.$dirty && v$.password.minLength.$invalid"
         >
-          Пароль должен быть {{v$.password.minLength.$params.min}} символов. Сейчас он {{password.length}}
+          {{$filters.localize.localizeFilter('The password must be')}}
+          {{v$.password.minLength.$params.min}}
+          {{$filters.localize.localizeFilter('characters. Now he')}}
+          {{password.length}}
         </small>
       </div>
     </div>
@@ -47,14 +50,14 @@
             class="btn waves-effect waves-light auth-submit"
             type="submit"
         >
-          Войти
+          {{$filters.localize.localizeFilter('Enter')}}
           <i class="material-icons right">send</i>
         </button>
       </div>
 
       <p class="center">
-        Нет аккаунта?
-        <router-link to="/register">Зарегистрироваться</router-link>
+        {{$filters.localize.localizeFilter('Don\'t have an account?')}}
+        <router-link to="/register">{{$filters.localize.localizeFilter('Register')}}</router-link>
       </p>
     </div>
   </form>

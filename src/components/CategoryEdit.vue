@@ -2,7 +2,7 @@
   <div class="col s12 m6">
     <div>
       <div class="page-subtitle">
-        <h4>Редактировать</h4>
+        <h4>{{$filters.localize.localizeFilter('Edit')}}</h4>
       </div>
 
       <form @submit.prevent="submitHandler">
@@ -16,7 +16,7 @@
                 {{c.title}}
             </option>
           </select>
-          <label>Выберите категорию</label>
+          <label>{{$filters.localize.localizeFilter('Select a category')}}</label>
         </div>
 
         <div class="input-field">
@@ -26,12 +26,12 @@
               v-model="title"
               :class="{invalid: v$.title.$dirty && v$.title.required.$invalid}"
           >
-          <label for="name">Название</label>
+          <label for="name">{{$filters.localize.localizeFilter('Name')}}</label>
           <span
               v-if="v$.title.$dirty && v$.title.required.$invalid"
               class="helper-text invalid"
           >
-            Введите название категории
+            {{$filters.localize.localizeFilter('Enter category name')}}
           </span>
         </div>
 
@@ -42,17 +42,17 @@
               v-model.number="limit"
               :class="{invalid: v$.limit.$dirty && v$.limit.minValue.$invalid}"
           >
-          <label for="limit">Лимит</label>
+          <label for="limit">{{$filters.localize.localizeFilter('Limit')}}</label>
           <span
               v-if="v$.limit.$dirty && v$.limit.minValue.$invalid"
               class="helper-text invalid"
           >
-            Минимальная величина {{v$.limit.minValue.$params.min}}
+            {{$filters.localize.localizeFilter('Minimum value')}} {{v$.limit.minValue.$params.min}}
           </span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
-          Обновить
+          {{$filters.localize.localizeFilter('Update')}}
           <i class="material-icons right">send</i>
         </button>
       </form>
@@ -120,7 +120,7 @@ export default {
           title: this.title,
           limit: this.limit
         })
-        M.toast({html: 'Категория успешно изменена'})
+        M.toast({html: this.$filters.localize.localizeFilter('Category successfully changed')})
         this.$emit('edited', {
           id: this.current,
           title: this.title,
@@ -128,7 +128,7 @@ export default {
         })
 
       } catch (e) {
-        M.toast({html: 'Что-то пошло не так'})
+        M.toast({html: this.$filters.localize.localizeFilter('Something went wrong')})
       }
     }
   },
