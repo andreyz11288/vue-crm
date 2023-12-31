@@ -17,7 +17,7 @@
         >
           <p>
             <strong>{{cat.title}}</strong>
-            {{$filters.filter.currencyFilter(cat.spend)}} {{$filters.localize.localizeFilter('from')}} {{$filters.filter.currencyFilter(cat.limit)}}
+            {{$filters.filter.currencyFilter(cat.spend)}} {{$filters.localize.localizeFilter('fo')}} {{$filters.filter.currencyFilter(cat.limit)}}
           </p>
           <div class="progress" v-tooltip="cat.tooltip">
             {{categories.length}}

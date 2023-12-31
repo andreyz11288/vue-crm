@@ -12,9 +12,6 @@ import {useHead} from "@unhead/vue"
 import localizeFilter from "@/filter/localize.filter";
   export default {
   setup() {
-    // const siteData = reactive({
-    //   title: `site`
-    // })
     useHead({
       title: computed(() => 'CRM')
     })

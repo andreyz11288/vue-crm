@@ -1,9 +1,9 @@
 import store from '../store'
-import ru from '../locales/ru.json'
+import ua from '../locales/ua.json'
 import en from '../locales/en.json'
 
 const locales = {
-    'ru_RU': ru,
+    'uk_UA': ua,
     'en_US': en
 }
 const  localize = {

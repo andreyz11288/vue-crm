@@ -4,8 +4,6 @@
   </div>
 </template>
 <script>
-import {computed} from "vue";
-import messages from "@/utils/messages";
 export default {
   computed: {
     error() {
@@ -14,7 +12,7 @@ export default {
   },
   watch: {
     error(fbError) {
-      M.toast({html: messages[fbError.code] || 'Что-то пошло не так'})
+      M.toast({html: this.$filters.localize.localizeFilter(fbError.code) || this.$filters.localize.localizeFilter('Something went wrong')})
     }
   }
 }

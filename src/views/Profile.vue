@@ -19,9 +19,9 @@
       <div class="switch">
         <label>
           English
-          <input type="checkbox" v-model="isRuLocale">
+          <input type="checkbox" v-model="isUaLocale">
           <span class="lever"></span>
-          Русский
+          Українська
         </label>
       </div>
 
@@ -50,7 +50,7 @@ export default {
   ),
   data: () => ({
     name: '',
-    isRuLocale: true,
+    isUaLocale: true,
   }),
   validations: {
     name: {
@@ -59,7 +59,7 @@ export default {
   },
   mounted() {
     this.name = this.info.name
-    this.isRuLocale = this.info.locale === 'ru_RU'
+    this.isUaLocale = this.info.locale === 'uk_UA'
     setTimeout(() => {
       M.updateTextFields()
     }, 0)
@@ -81,7 +81,7 @@ export default {
       try {
         await this.updateInfo({
           name: this.name,
-          locale: this.isRuLocale ? 'ru_RU' : 'en_US'
+          locale: this.isUaLocale ? 'uk_UA' : 'en_US'
         })
       } catch (e) {}
     }

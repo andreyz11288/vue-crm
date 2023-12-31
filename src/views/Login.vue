@@ -1,7 +1,7 @@
 <template>
   <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
-      <span class="card-title">{{$filters.localize.localizeFilter('Home accounting')}}</span>
+      <span class="card-title">{{ $filters.localize.localizeFilter('Home accounting') }}</span>
       <div class="input-field">
         <input
             id="email"
@@ -13,11 +13,11 @@
         <small
             class="helper-text invalid"
             v-if="v$.email.$dirty && v$.email.required.$invalid"
-        >{{$filters.localize.localizeFilter('The Email field must not be empty')}}</small>
+        >{{ $filters.localize.localizeFilter('The Email field must not be empty') }}</small>
         <small
             class="helper-text invalid"
             v-else-if="v$.email.$dirty && v$.email.$invalid"
-        >{{$filters.localize.localizeFilter('Enter correct Email')}}</small>
+        >{{ $filters.localize.localizeFilter('Enter correct Email') }}</small>
       </div>
       <div class="input-field">
         <input
@@ -26,21 +26,21 @@
             v-model.trim="password"
             :class="{invalid: (v$.password.$dirty && v$.password.minLength.$invalid) || (v$.password.$dirty && v$.password.required.$invalid)}"
         >
-        <label for="password">{{$filters.localize.localizeFilter('Password')}}</label>
+        <label for="password">{{ $filters.localize.localizeFilter('Password') }}</label>
         <small
             class="helper-text invalid"
             v-if="v$.password.$dirty && v$.password.required.$invalid"
         >
-          {{$filters.localize.localizeFilter('Enter password')}}
+          {{ $filters.localize.localizeFilter('Enter password') }}
         </small>
         <small
             class="helper-text invalid"
             v-else-if="v$.password.$dirty && v$.password.minLength.$invalid"
         >
-          {{$filters.localize.localizeFilter('The password must be')}}
-          {{v$.password.minLength.$params.min}}
-          {{$filters.localize.localizeFilter('characters. Now he')}}
-          {{password.length}}
+          {{ $filters.localize.localizeFilter('The password must be') }}
+          {{ v$.password.minLength.$params.min }}
+          {{ $filters.localize.localizeFilter('characters. Now he') }}
+          {{ password.length }}
         </small>
       </div>
     </div>
@@ -50,60 +50,58 @@
             class="btn waves-effect waves-light auth-submit"
             type="submit"
         >
-          {{$filters.localize.localizeFilter('Enter')}}
+          {{ $filters.localize.localizeFilter('Login') }}
           <i class="material-icons right">send</i>
         </button>
       </div>
 
       <p class="center">
-        {{$filters.localize.localizeFilter('Don\'t have an account?')}}
-        <router-link to="/register">{{$filters.localize.localizeFilter('Register')}}</router-link>
+        {{ $filters.localize.localizeFilter('Don\'t have an account?') }}
+        <router-link to="/register">{{ $filters.localize.localizeFilter('Register') }}</router-link>
       </p>
     </div>
   </form>
 </template>
 
 <script>
-import { useVuelidate } from '@vuelidate/core'
+import {useVuelidate} from '@vuelidate/core'
 import {email, required, minLength} from '@vuelidate/validators'
-import messages from "@/utils/messages";
 
 export default {
   name: 'login',
-  setup: () => ({ v$: useVuelidate() }),
+  setup: () => ({v$: useVuelidate()}),
   data: () => ({
     email: '',
     password: '',
   }),
-  validations () {
+  validations() {
     return {
-      email: { email, required },
-      password: {required, minLength: minLength(6) }
+      email: {email, required},
+      password: {required, minLength: minLength(6)}
     }
   },
   mounted() {
-    if (messages[this.$route.query.message]) {
-
-      M.toast({html: messages[this.$route.query.message]})
+    if (this.$route.query.message === 'login' || this.$route.query.message === 'logout') {
+      M.toast({html: this.$filters.localize.localizeFilter(this.$route.query.message)})
     }
   },
   methods: {
-      async submitHandler() {
-        if (this.v$.$invalid) {
-          await this.v$.$touch()
-          return
-        }
-        const formData= {
-          email: this.email,
-          password: this.password
-        }
-        try {
-          await this.$store.dispatch('login', formData);
-          await this.$router.push('/');
-        } catch (e) {
-
-        }
+    async submitHandler() {
+      if (this.v$.$invalid) {
+        await this.v$.$touch()
+        return
       }
+      const formData = {
+        email: this.email,
+        password: this.password
+      }
+      try {
+        await this.$store.dispatch('login', formData);
+        await this.$router.push('/');
+      } catch (e) {
+
+      }
+    }
   }
 }
 

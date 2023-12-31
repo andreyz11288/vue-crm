@@ -23,7 +23,7 @@
   "View entry": "View entry",
   "Expenses by category": "Expenses by category",
   "No categories yet": "No categories yet",
-  "from": "from",
+  "fo": "from",
   "Excess by": "Excess by",
   "Left": "Left",
   "Bill in currency": "Bill in currency",
@@ -52,9 +52,17 @@
   "Enter password": "Enter password",
   "The password must be": "The password must be",
   "characters. Now he": "characters. Now he",
-  "Enter": "Enter",
+  "Login": "Login",
   "Don't have an account?": "Don't have an account?",
   "Register": "Register",
   "Out": "Out",
-  "Home": "Home"
+  "Home": "Home",
+  "The name must be": "The name must be",
+  "characters. Now it is": "characters. Now it is",
+  "I agree with the rules": "I agree with the rules",
+  "Already have an account?": "Already have an account?",
+  "login": "To get started, log in",
+  "logout": "You are logged out",
+  "auth/invalid-credential": "There is no user with these credentials",
+  "auth/email-already-in-use": "The email address is already in use by another account"
 }
