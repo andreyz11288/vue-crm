@@ -8,7 +8,7 @@ const locales = {
 }
 const  localize = {
     localizeFilter(key) {
-        const locale = store.getters.info.locale || 'ru_RU'
+        const locale = store.getters.info.locale || 'en_US'
         return locales[locale][key] || `[Localize error]: key ${key} not found`
     }
 }
