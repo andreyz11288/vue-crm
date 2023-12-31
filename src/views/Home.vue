@@ -28,6 +28,9 @@
 import HomeBill from "@/components/HomeBill.vue";
 import HomeCurrency from "@/components/HomeCurrency.vue";
 import Loader from "@/components/app/Loader.vue";
+import {computed} from "vue";
+import {useHead} from "@vueuse/head";
+import localizeFilter from "@/filter/localize.filter";
 export default {
   name: "Home",
   components: {
@@ -35,6 +38,17 @@ export default {
     HomeBill,
     HomeCurrency
   },
+  setup:() => (
+      useHead({
+        title: computed(() => localizeFilter.localizeFilter('Home')),
+        meta: [
+          {
+            "http-equiv": "Content-Security-Policy",
+            content:"upgrade-insecure-requests"
+          }
+        ]
+      })
+  ),
   data: () => ({
     loading: true,
     currency: null
