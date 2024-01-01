@@ -106,7 +106,7 @@ export default {
         this.v$.$touch()
         return
       }
-      const formData= {
+      const formData = {
         name: this.name,
         currency: this.currency,
         locale: this.isUaLocale ? 'uk_UA' : 'en_US',
@@ -115,20 +115,23 @@ export default {
         const emailExists = (await this.fetchAllUsers()).find(user =>
           user.info.email === this.newEmail
         )
+        const data = {
+          email: this.newEmail,
+          router: this.$router
+        }
         if (await this.fetchEmail() !== this.newEmail) {
           if (emailExists) {
             M.toast({html: localizeFilter.localizeFilter('This email already exists')})
             return
           }
-          const data = {
-            email: this.newEmail,
-            router: this.$router
-          }
+
           await this.updateEmail(data)
         }
         await this.updateInfo(formData)
 
-      } catch (e) {}
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }

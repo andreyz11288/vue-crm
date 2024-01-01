@@ -25,7 +25,6 @@ export default {
   }),
   computed: {
     base() {
-      console.log(this.$store.getters.info.currency)
       if (this.$store.getters.info.currency === 'UAH') {
         return this.$store.getters.info.bill / (this.rates['UAH'] / this.rates['EUR'])
       }

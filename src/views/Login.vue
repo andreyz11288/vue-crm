@@ -66,6 +66,7 @@
 <script>
 import {useVuelidate} from '@vuelidate/core'
 import {email, required, minLength} from '@vuelidate/validators'
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: 'login',
@@ -101,7 +102,6 @@ export default {
       }
       try {
         await this.$store.dispatch('login', formData);
-        await this.$store.dispatch('updateInfo', {email:this.email});
         await this.$router.push('/');
       } catch (e) {
 
