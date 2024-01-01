@@ -23,7 +23,7 @@
   "View entry": "View entry",
   "Expenses by category": "Expenses by category",
   "No categories yet": "No categories yet",
-  "fo": "from",
+  "fo": "fo",
   "Excess by": "Excess by",
   "Left": "Left",
   "Bill in currency": "Bill in currency",
@@ -64,5 +64,8 @@
   "login": "To get started, log in",
   "logout": "You are logged out",
   "auth/invalid-credential": "There is no user with these credentials",
-  "auth/email-already-in-use": "The email address is already in use by another account"
+  "auth/email-already-in-use": "The email address is already in use by another account",
+  "Select a currency": "Select a currency",
+  "New Email": "New Email",
+  "This email already exists": "This email already exists"
 }

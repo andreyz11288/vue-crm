@@ -2,7 +2,7 @@
   <div>
     <div class="page-title">
       <h3>{{$filters.localize.localizeFilter('Planning')}}</h3>
-      <h4>{{$filters.filter.currencyFilter(info.bill)}}</h4>
+      <h4>{{$filters.filter.currencyFilter(info.bill, info.currency)}}</h4>
     </div>
 
     <Loader v-if="loading"/>
@@ -17,7 +17,7 @@
         >
           <p>
             <strong>{{cat.title}}</strong>
-            {{$filters.filter.currencyFilter(cat.spend)}} {{$filters.localize.localizeFilter('fo')}} {{$filters.filter.currencyFilter(cat.limit)}}
+            {{$filters.filter.currencyFilter(cat.spend, info.currency)}} {{$filters.localize.localizeFilter('fo')}} {{$filters.filter.currencyFilter(cat.limit, info.currency)}}
           </p>
           <div class="progress" v-tooltip="cat.tooltip">
             {{categories.length}}
@@ -46,6 +46,7 @@ export default {
 
   },
   async mounted() {
+    console.log(this.info.bill)
 
     const records = await this.$store.dispatch('fetchRecords')
     const categories = await this.$store.dispatch('fetchCategories')
@@ -61,7 +62,7 @@ export default {
       const progressPercent = percent > 100 ? 100 : percent
       const colorProgressBar = percent < 60 ? 'green' : percent < 100 ? 'yellow' : 'red'
       const tooltipValue = cat.limit - spend
-      const tooltip = `${tooltipValue < 0 ? this.$filters.localize.localizeFilter('Excess by') : this.$filters.localize.localizeFilter('Left')} ${this.$filters.filter.currencyFilter(Math.abs(tooltipValue))}`
+      const tooltip = `${tooltipValue < 0 ? this.$filters.localize.localizeFilter('Excess by') : this.$filters.localize.localizeFilter('Left')} ${this.$filters.filter.currencyFilter(Math.abs(tooltipValue), this.info.currency)}`
 
       return {
         ...cat, progressPercent, colorProgressBar, spend, tooltip

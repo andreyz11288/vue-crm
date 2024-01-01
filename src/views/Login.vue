@@ -81,7 +81,11 @@ export default {
     }
   },
   mounted() {
-    if (this.$route.query.message === 'login' || this.$route.query.message === 'logout') {
+    if (
+        this.$route.query.message === 'login'
+        || this.$route.query.message === 'logout'
+        || this.$route.query.message === 'changed-email'
+    ) {
       M.toast({html: this.$filters.localize.localizeFilter(this.$route.query.message)})
     }
   },
@@ -97,6 +101,7 @@ export default {
       }
       try {
         await this.$store.dispatch('login', formData);
+        await this.$store.dispatch('updateInfo', {email:this.email});
         await this.$router.push('/');
       } catch (e) {
 

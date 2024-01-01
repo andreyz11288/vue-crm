@@ -118,7 +118,7 @@ export default {
       const formData= {
         email: this.email,
         password: this.password,
-        name: this.name
+        name: this.name,
       }
       try {
         await this.$store.dispatch('register', formData)

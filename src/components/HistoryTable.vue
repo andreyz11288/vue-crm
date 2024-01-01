@@ -14,7 +14,7 @@
     <tbody>
     <tr v-for="(record, idx) in records" :key="record.id">
       <td>{{idx + 1}}</td>
-      <td>{{$filters.filter.currencyFilter(Math.abs(record.amount))}}</td>
+      <td>{{$filters.filter.currencyFilter(Math.abs(record.amount), info.currency)}}</td>
       <td>{{originalDate(record.date)}}</td>
       <td>{{record.categoryName}}</td>
       <td>
@@ -37,6 +37,7 @@
   </table>
 </template>
 <script>
+import {mapGetters} from "vuex";
 export default {
   props: {
     records:{
@@ -53,6 +54,10 @@ export default {
       return `${originalDate.toISOString().split('T')[0]}, ${originalDate.toLocaleTimeString("en-US", options)}`;
 
     }
-  }
+  },
+  computed: {
+    ...mapGetters(['info'])
+
+  },
 }
 </script>

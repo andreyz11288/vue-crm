@@ -25,7 +25,16 @@ export default {
   }),
   computed: {
     base() {
-      return this.$store.getters.info.bill / (this.rates['UAH'] / this.rates['EUR'])
+      console.log(this.$store.getters.info.currency)
+      if (this.$store.getters.info.currency === 'UAH') {
+        return this.$store.getters.info.bill / (this.rates['UAH'] / this.rates['EUR'])
+      }
+      if (this.$store.getters.info.currency === 'USD') {
+        return this.$store.getters.info.bill / (this.rates['USD'] / this.rates['EUR'])
+      }
+      if (this.$store.getters.info.currency === 'EUR') {
+        return this.$store.getters.info.bill
+      }
     }
   },
   methods: {

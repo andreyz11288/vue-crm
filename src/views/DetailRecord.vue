@@ -19,7 +19,7 @@
           >
             <div class="card-content white-text">
               <p>{{$filters.localize.localizeFilter('Description')}}: {{record.description}}</p>
-              <p>{{$filters.localize.localizeFilter('Sum')}}: {{$filters.filter.currencyFilter(Math.abs(record.amount))}}</p>
+              <p>{{$filters.localize.localizeFilter('Sum')}}: {{$filters.filter.currencyFilter(Math.abs(record.amount), info.currency)}}</p>
               <p>{{$filters.localize.localizeFilter('Category')}}: {{record.categoryName}}</p>
               <small>{{ originalDate(record.date) }}</small>
             </div>
@@ -33,6 +33,7 @@
 </template>
 <script>
 import Loader from "@/components/app/Loader.vue";
+import {mapGetters} from "vuex";
 
 export default {
   name: 'detailRecord',
@@ -60,7 +61,11 @@ export default {
       return `${originalDate.toISOString().split('T')[0]}, ${originalDate.toLocaleTimeString("en-US", options)}`;
 
     }
-  }
+  },
+  computed: {
+    ...mapGetters(['info'])
+
+  },
 }
 </script>
 
