@@ -56,7 +56,9 @@ export default {
   async mounted() {
     this.currency =  await this.$store.dispatch('fetchCurrency')
     const email =  await this.$store.dispatch('fetchEmail')
-    await this.$store.dispatch('updateInfo', {email})
+    if (email) {
+      await this.$store.dispatch('updateInfo', {email})
+    }
     this.loading = false
   },
   methods: {

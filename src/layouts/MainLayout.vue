@@ -18,6 +18,7 @@
         <i class="large material-icons">add</i>
       </router-link>
     </div>
+    <Footer />
   </div>
 </div>
 </template>
@@ -26,9 +27,11 @@
 import Navbar from "@/components/app/Navbar.vue";
 import Sidebar from "@/components/app/Sidebar.vue";
 import Loader from "@/components/app/Loader.vue";
+import Footer from "@/components/app/Footer.vue";
 export default {
   name: 'main-layout',
   components: {
+    Footer,
     Loader,
     Navbar,
     Sidebar
@@ -66,3 +69,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+.fixed-action-btn {
+  z-index: 1001;
+  bottom: 35px;
+}
+</style>

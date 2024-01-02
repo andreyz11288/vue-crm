@@ -1,40 +1,51 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>{{$filters.localize.localizeFilter('Profile')}}</h3>
+      <h3>{{ $filters.localize.localizeFilter('Profile') }}</h3>
     </div>
 
     <form class="form" @submit.prevent="handleSubmit">
       <div class="input-field">
         <input
-            id="description"
+            id="name"
             type="text"
             v-model="name"
             :class="{invalid: (v$.name.$dirty && v$.name.required.$invalid)}"
         >
-        <label for="description">{{$filters.localize.localizeFilter('Name')}}</label>
+        <label for="name">{{ $filters.localize.localizeFilter('Name') }}</label>
         <span
-            class="helper-text invalid" v-if="v$.name.$dirty && v$.name.required.$invalid">{{$filters.localize.localizeFilter('Enter your name')}}</span>
+            class="helper-text invalid"
+            v-if="v$.name.$dirty && v$.name.required.$invalid">{{ $filters.localize.localizeFilter('Enter your name') }}</span>
       </div>
       <div class="input-field">
         <input
-            id="description"
+            id="email"
             type="text"
             v-model="newEmail"
+            @input="inputContext"
         >
-        <label for="description">{{$filters.localize.localizeFilter('New Email')}}</label>
+        <label for="email">{{ $filters.localize.localizeFilter('Change Email') }}</label>
       </div>
-      <div class="input-field" >
+      <div class="input-field" v-if="changedEmail">
+        <input
+            id="pass"
+            type="text"
+            v-model="pass"
+        >
+        <label class="label-pass"
+               for="pass">{{ $filters.localize.localizeFilter('Enter password for change Email') }}</label>
+      </div>
+      <div class="input-field">
         <select ref="select" v-model="currency">
           <option
               v-for="(c, idx) in currencies"
               :key="idx"
               :value="c"
           >
-            {{c}}
+            {{ c }}
           </option>
         </select>
-        <label>{{$filters.localize.localizeFilter('Select a currency')}}</label>
+        <label for="select">{{ $filters.localize.localizeFilter('Select a currency') }}</label>
       </div>
       <div class="switch">
         <label>
@@ -46,7 +57,7 @@
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
-        {{$filters.localize.localizeFilter('Update')}}
+        {{ $filters.localize.localizeFilter('Update') }}
         <i class="material-icons right">send</i>
       </button>
     </form>
@@ -59,14 +70,15 @@ import {useVuelidate} from "@vuelidate/core";
 import localizeFilter from "@/filter/localize.filter";
 import {computed} from "vue";
 import {useHead} from "@vueuse/head";
+
 export default {
-  setup:() => (
-        useHead({
-          title: computed(() => localizeFilter.localizeFilter('Profile'))
-        }),
-      {
-         v$: useVuelidate()
-      }
+  setup: () => (
+      useHead({
+        title: computed(() => localizeFilter.localizeFilter('Profile'))
+      }),
+          {
+            v$: useVuelidate()
+          }
   ),
   data: () => ({
     select: null,
@@ -74,7 +86,9 @@ export default {
     currency: null,
     isUaLocale: true,
     currencies: [],
-    newEmail: ''
+    newEmail: '',
+    pass: '',
+    changedEmail: false,
   }),
   validations: {
     name: {
@@ -101,6 +115,11 @@ export default {
   methods: {
     localizeFilter,
     ...mapActions(['updateInfo', 'fetchEmail', 'updateEmail', 'fetchAllUsers']),
+
+    async inputContext(e) {
+      this.changedEmail = await this.fetchEmail() !== this.newEmail;
+    },
+
     async handleSubmit() {
       if (this.v$.$invalid) {
         this.v$.$touch()
@@ -113,13 +132,15 @@ export default {
       }
       try {
         const emailExists = (await this.fetchAllUsers()).find(user =>
-          user.info.email === this.newEmail
+            user.info.email === this.newEmail
         )
         const data = {
           email: this.newEmail,
-          router: this.$router
+          router: this.$router,
+          pass: this.pass
         }
         if (await this.fetchEmail() !== this.newEmail) {
+
           if (emailExists) {
             M.toast({html: localizeFilter.localizeFilter('This email already exists')})
             return
@@ -143,4 +164,9 @@ export default {
 .switch {
   margin-bottom: 2rem;
 }
+
+.label-pass {
+  color: red;
+}
+
 </style>

@@ -66,6 +66,11 @@
   "auth/invalid-credential": "Користувача з такими обліковими даними немає",
   "auth/email-already-in-use": "Адреса електронної пошти вже використовується іншим обліковим записом",
   "Select a currency": "Виберіть валюту",
-  "New Email": "Новий Email",
-  "This email already exists": "Цей email вже існує"
+  "Change Email": "Новий Email",
+  "This email already exists": "Цей email вже існує",
+  "All rights reserved.": "Всі права захищені.",
+  "Please log in again and try to change your email again": "Будь ласка, увійдіть в систему знову і знову спробуйте змінити електронку",
+  "Enter password for change Email": "Введіть пароль для зміни електронної пошти",
+  "Incorrect password": "Невірний пароль",
+  "To verify your mail, an email has been sent to the specified email.": "Для підтвердження вашої пошти на вказану електронну адресу надіслано лист."
 }

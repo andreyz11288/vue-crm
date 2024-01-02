@@ -1,5 +1,5 @@
 import firebase from 'firebase/compat/app'
-
+import localizeFilter from "@/filter/localize.filter";
 export default {
     state: {
         info: {}
@@ -20,6 +20,7 @@ export default {
                 const info = await firebase.database().ref(`/users/${uid}/info`).update(toUpdate)
                 commit('setInfo', updateData)
             } catch (e) {
+                console.log(e)
                 commit('setError', e)
                 throw e
             }
@@ -30,23 +31,32 @@ export default {
                 const info = (await firebase.database().ref(`/users/${uid}/info`).once('value')).val()
                 commit('setInfo', info)
             } catch (e) {
+                console.log(e)
                 commit('setError', e)
                 throw e
             }
         },
-        async updateEmail({commit, getters}, data) {
+        async updateEmail({commit, getters, dispatch}, data) {
             try {
-                console.log(data)
-                const auth = firebase.auth()
-                await auth.currentUser.verifyBeforeUpdateEmail(data.email).then(()=>{
-                    console.log('1')
-                    firebase.auth().signOut()
-                    data.router.push('/login')
-                    M.toast({html: 'To verify your mail, an email has been sent to the specified email.'})
+                await firebase.auth().currentUser.reauthenticateWithCredential(
+                    await firebase.auth.EmailAuthProvider.credential(firebase.auth().currentUser.email, data.pass)
+                ).then(()=>{
+                    firebase.auth().currentUser.verifyBeforeUpdateEmail(data.email).then(()=>{
+                        firebase.auth().signOut()
+                        data.router.push('/login')
+                        M.toast({html: localizeFilter.localizeFilter('To verify your mail, an email has been sent to the specified email.')})
+                    })
                 }).catch((e)=>{
-                    console.log(e)
+                    console.log(e.code)
+                    if (e.code === 'auth/missing-password') {
+                        M.toast({html: localizeFilter.localizeFilter('Enter password')})
+                    }
+                    if (e.code === 'auth/invalid-credential') {
+                        M.toast({html: localizeFilter.localizeFilter('Incorrect password')})
+                    }
                 })
             } catch (e) {
+                console.log(e.code)
                 commit('setError', e)
                 throw e
             }
@@ -58,6 +68,7 @@ export default {
                     return  auth.currentUser.email
                 }
             } catch (e) {
+                console.log(e.code)
                 commit('setError', e)
                 throw e
             }

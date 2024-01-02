@@ -66,6 +66,11 @@
   "auth/invalid-credential": "There is no user with these credentials",
   "auth/email-already-in-use": "The email address is already in use by another account",
   "Select a currency": "Select a currency",
-  "New Email": "New Email",
-  "This email already exists": "This email already exists"
+  "Change Email": "Change Email",
+  "This email already exists": "This email already exists",
+  "All rights reserved.": "All rights reserved.",
+  "Please log in again and try to change your email again": "Please log in again and try to change your email again",
+  "Enter password for change Email": "Enter password for change Email",
+  "Incorrect password": "Incorrect password",
+  "To verify your mail, an email has been sent to the specified email.": "To verify your mail, an email has been sent to the specified email."
 }
