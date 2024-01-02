@@ -61,6 +61,30 @@ export default {
                 throw e
             }
         },
+        async updatePassword({commit, getters, dispatch}, data) {
+            try {
+                await firebase.auth().currentUser.reauthenticateWithCredential(
+                    await firebase.auth.EmailAuthProvider.credential(firebase.auth().currentUser.email, data.oldPass)
+                ).then(()=>{
+                    firebase.auth().currentUser.updatePassword(data.newPass)
+                        .then(()=>{
+                        M.toast({html: localizeFilter.localizeFilter('The password has been changed')})
+                    })
+                }).catch((e)=>{
+                    console.log(e.code)
+                    if (e.code === 'auth/invalid-credential') {
+                        M.toast({html: localizeFilter.localizeFilter('Incorrect password')})
+                    }
+                    if (e.code === 'auth/too-many-requests') {
+                        M.toast({html: localizeFilter.localizeFilter('Too-many-requests error, try again later')})
+                    }
+                })
+            } catch (e) {
+                console.log(e.code)
+                commit('setError', e)
+                throw e
+            }
+        },
         async fetchEmail({commit}) {
             try {
                 const auth = await firebase.auth()

@@ -19,44 +19,25 @@
             v-else-if="v$.email.$dirty && v$.email.$invalid"
         >{{ $filters.localize.localizeFilter('Enter correct Email') }}</small>
       </div>
-      <div class="input-field">
-        <input
-            id="password"
-            type="password"
-            v-model.trim="password"
-            :class="{invalid: (v$.password.$dirty && v$.password.minLength.$invalid) || (v$.password.$dirty && v$.password.required.$invalid)}"
-        >
-        <label for="password">{{ $filters.localize.localizeFilter('Password') }}</label>
-        <small
-            class="helper-text invalid"
-            v-if="v$.password.$dirty && v$.password.required.$invalid"
-        >
-          {{ $filters.localize.localizeFilter('Enter password') }}
-        </small>
-        <small
-            class="helper-text invalid"
-            v-else-if="v$.password.$dirty && v$.password.minLength.$invalid"
-        >
-          {{ $filters.localize.localizeFilter('The password must be') }}
-          {{ v$.password.minLength.$params.min }}
-          {{ $filters.localize.localizeFilter('characters. Now he') }}
-          {{ password.length }}
-        </small>
-      </div>
-      <router-link to="request-password-reset"
-      >
-        Forgot password?
-      </router-link>
     </div>
+    <p class="text-content">{{
+        $filters.localize.localizeFilter('We will send a verification code to this email address if they match an existing CRM account.')
+      }}</p>
     <div class="card-action">
       <div>
         <button
             class="btn waves-effect waves-light auth-submit"
             type="submit"
         >
-          {{ $filters.localize.localizeFilter('Login') }}
+          {{ $filters.localize.localizeFilter('Go') }}
           <i class="material-icons right">send</i>
         </button>
+        <router-link
+            class="btn waves-effect waves-light auth-submit return-button"
+            to="/login"
+        >
+          {{ $filters.localize.localizeFilter('Return') }}
+        </router-link>
       </div>
 
       <p class="center">
@@ -70,28 +51,16 @@
 <script>
 import {useVuelidate} from '@vuelidate/core'
 import {email, required, minLength} from '@vuelidate/validators'
-import {mapActions, mapGetters} from "vuex";
 
 export default {
-  name: 'login',
+  name: 'request-password-reset',
   setup: () => ({v$: useVuelidate()}),
   data: () => ({
     email: '',
-    password: '',
   }),
   validations() {
     return {
       email: {email, required},
-      password: {required, minLength: minLength(6)}
-    }
-  },
-  mounted() {
-    if (
-        this.$route.query.message === 'login'
-        || this.$route.query.message === 'logout'
-        || this.$route.query.message === 'changed-email'
-    ) {
-      M.toast({html: this.$filters.localize.localizeFilter(this.$route.query.message)})
     }
   },
   methods: {
@@ -102,20 +71,25 @@ export default {
       }
       const formData = {
         email: this.email,
-        password: this.password
       }
       try {
-        await this.$store.dispatch('login', formData);
-        await this.$router.push('/');
-      } catch (e) {
-
-      }
+        await this.$store.dispatch('forgotPassword', formData);
+        await this.$router.push('/login');
+      } catch (e) {}
     }
   }
 }
-
 </script>
 
 <style scoped lang="scss">
-
+.text-content {
+  margin-top: 0;
+  padding: 0 24px;
+}
+.return-button {
+  background-color: inherit;
+  box-shadow: none;
+  color: inherit;
+  padding-right: 45px;
+}
 </style>

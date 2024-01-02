@@ -70,7 +70,13 @@
   "This email already exists": "This email already exists",
   "All rights reserved.": "All rights reserved.",
   "Please log in again and try to change your email again": "Please log in again and try to change your email again",
-  "Enter password for change Email": "Enter password for change Email",
+  "Enter password for change Email or Password": "Enter password for change Email or Password",
   "Incorrect password": "Incorrect password",
-  "To verify your mail, an email has been sent to the specified email.": "To verify your mail, an email has been sent to the specified email."
+  "To verify your mail, an email has been sent to the specified email.": "To verify your mail, an email has been sent to the specified email.",
+  "Enter new password": "Enter new password",
+  "The password has been changed": "The password has been changed",
+  "Too-many-requests error, try again later": "Too-many-requests error, try again later",
+  "Go": "Go",
+  "We will send a verification code to this email address if they match an existing CRM account.": "We will send a verification code to this email address if they match an existing CRM account.",
+  "Return": "Return"
 }

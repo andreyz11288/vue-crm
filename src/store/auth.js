@@ -24,6 +24,11 @@ export default {
                 throw e
             }
         },
+
+        async forgotPassword({dispatch, commit}, formData) {
+            await firebase.auth().sendPasswordResetEmail(formData.email)
+        },
+
         getUid() {
           const user = firebase.auth().currentUser;
           return user  ? user.uid : null;

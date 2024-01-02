@@ -26,14 +26,30 @@
         >
         <label for="email">{{ $filters.localize.localizeFilter('Change Email') }}</label>
       </div>
-      <div class="input-field" v-if="changedEmail">
+      <div class="input-field">
+        <input
+            @input="inputContextPass"
+            id="password"
+            type="password"
+            v-model.trim="password"
+            :class="{invalid: (v$.password.$dirty && v$.password.minLength.$invalid)}"
+        >
+        <label for="password">{{$filters.localize.localizeFilter('Enter new password')}}</label>
+        <small
+            class="helper-text invalid"
+            v-if="v$.password.$dirty && v$.password.minLength.$invalid"
+        >
+          {{$filters.localize.localizeFilter('The password must be')}} {{v$.password.minLength.$params.min}} {{$filters.localize.localizeFilter('characters. Now he')}} {{password.length}}
+        </small>
+      </div>
+      <div class="input-field" v-if="changedEmailAndPassword">
         <input
             id="pass"
             type="text"
             v-model="pass"
         >
         <label class="label-pass"
-               for="pass">{{ $filters.localize.localizeFilter('Enter password for change Email') }}</label>
+               for="pass">{{ $filters.localize.localizeFilter('Enter password for change Email or Password') }}</label>
       </div>
       <div class="input-field">
         <select ref="select" v-model="currency">
@@ -65,7 +81,7 @@
 </template>
 <script>
 import {mapGetters, mapActions} from 'vuex'
-import {required} from '@vuelidate/validators'
+import {required, minLength} from '@vuelidate/validators'
 import {useVuelidate} from "@vuelidate/core";
 import localizeFilter from "@/filter/localize.filter";
 import {computed} from "vue";
@@ -88,7 +104,9 @@ export default {
     currencies: [],
     newEmail: '',
     pass: '',
-    changedEmail: false,
+    changedEmailAndPassword: false,
+    checkboxButton: false,
+    password: '',
   }),
   validations: {
     name: {
@@ -96,6 +114,9 @@ export default {
     },
     currency: {
       required
+    },
+    password: {
+      minLength: minLength(6)
     }
   },
   async mounted() {
@@ -114,10 +135,19 @@ export default {
   },
   methods: {
     localizeFilter,
-    ...mapActions(['updateInfo', 'fetchEmail', 'updateEmail', 'fetchAllUsers']),
+    ...mapActions(['updateInfo', 'fetchEmail', 'updateEmail', 'fetchAllUsers', 'updatePassword']),
 
-    async inputContext(e) {
-      this.changedEmail = await this.fetchEmail() !== this.newEmail;
+    handleSubmitChangePassword() {
+
+    },
+
+    async inputContext() {
+      this.changedEmailAndPassword = await this.fetchEmail() !== this.newEmail;
+    },
+
+    inputContextPass() {
+      this.changedEmailAndPassword = this.password.length >= 6
+      console.log(this.changedEmailAndPassword)
     },
 
     async handleSubmit() {
@@ -139,6 +169,16 @@ export default {
           router: this.$router,
           pass: this.pass
         }
+        const passwordData = {
+          router: this.$router,
+          oldPass: this.pass,
+          newPass: this.password
+        }
+
+        if (this.password.length >= 6) {
+          await this.checkNewPassword(passwordData)
+        }
+
         if (await this.fetchEmail() !== this.newEmail) {
 
           if (emailExists) {
@@ -153,6 +193,13 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    async checkNewPassword(passwordData) {
+      await this.updatePassword(passwordData)
+      this.password = ''
+      this.pass = ''
+      this.changedEmailAndPassword = false
+
     }
   }
 }
