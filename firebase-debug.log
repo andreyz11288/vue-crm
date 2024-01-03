@@ -1,0 +1,23 @@
+[debug] [2024-01-03T18:29:32.297Z] ----------------------------------------------------------------------
+[debug] [2024-01-03T18:29:32.299Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-01-03T18:29:32.300Z] CLI Version:   13.0.2
+[debug] [2024-01-03T18:29:32.300Z] Platform:      win32
+[debug] [2024-01-03T18:29:32.300Z] Node Version:  v18.0.0
+[debug] [2024-01-03T18:29:32.301Z] Time:          Wed Jan 03 2024 20:29:32 GMT+0200 (Восточная Европа, стандартное время)
+[debug] [2024-01-03T18:29:32.301Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-01-03T18:29:32.303Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-01-03T18:29:32.452Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-01-03T18:29:32.452Z] > authorizing via signed-in user (andreyz11288@gmail.com)
+[debug] [2024-01-03T18:29:32.452Z] [iam] checking project vue-crm-111 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-01-03T18:29:32.453Z] > refreshing access token with scopes: []
+[debug] [2024-01-03T18:29:32.454Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-01-03T18:29:32.454Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-01-03T18:29:33.581Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-01-03T18:29:33.582Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-01-03T18:29:33.592Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/vue-crm-111:testIamPermissions [none]
+[debug] [2024-01-03T18:29:33.592Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/vue-crm-111:testIamPermissions x-goog-quota-user=projects/vue-crm-111
+[debug] [2024-01-03T18:29:33.592Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/vue-crm-111:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-01-03T18:29:35.397Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/vue-crm-111:testIamPermissions 200
+[debug] [2024-01-03T18:29:35.397Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/vue-crm-111:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-01-03T18:29:35.398Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/vue-crm-111 [none]
