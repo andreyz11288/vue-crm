@@ -84,5 +84,6 @@
   "Income by category": "Income by category",
   "Total": "total",
   "outcome": "Outcome",
-  "income": "Income"
+  "income": "Income",
+  "auth/too-many-requests": "Try again later"
 }

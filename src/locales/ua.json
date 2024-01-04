@@ -85,5 +85,6 @@
   "Income by category": "Дохід за категоріями",
   "Total": "всього",
   "outcome": "Витрати",
-  "income": "Дохід"
+  "income": "Дохід",
+  "auth/too-many-requests": "Спробуйте трохи пізніше"
 }

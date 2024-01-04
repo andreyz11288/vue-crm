@@ -6,8 +6,9 @@
   <nav class="navbar orange lighten-1">
     <div class="nav-wrapper">
       <div class="navbar-left">
-        <a href="#" @click.prevent="$emit('click1')">
-          <i class="material-icons black-text">dehaze</i>
+        <a href="#" @click.prevent="$emit('click1')" @click="keyboardArrow = !keyboardArrow">
+          <i class="material-icons black-text" v-if="keyboardArrow">keyboard_arrow_left</i>
+          <i class="material-icons black-text" v-else>keyboard_arrow_right</i>
         </a>
         <span class="black-text">{{
             `${date.getFullYear()}.`
@@ -18,8 +19,10 @@
             + `${date.getSeconds()}`
           }}</span>
       </div>
-
-      <ul class="right hide-on-small-and-down">
+      <div style="display: flex">
+          <i class="large material-icons" v-if="!previewImage">face</i>
+          <img :src="srcPreviewImage" class="uploading-image"  alt="uploading-image" v-else/>
+        <ul class="right hide-on-small-and-down">
         <li>
           <a
               class="dropdown-trigger black-text"
@@ -48,6 +51,7 @@
           </ul>
         </li>
       </ul>
+      </div>
     </div>
   </nav>
 </template>
@@ -55,6 +59,9 @@
 <script>
 export default {
   mounted() {
+    if (this.$store.getters.info.image) {
+      this.previewImage = this.$store.getters.info.image
+    }
     this.dropdown = M.Dropdown.init(this.$refs.dropdown, {constrainWidth: true})
     this.interval = setInterval(()=>{
       this.date = new Date()
@@ -74,6 +81,8 @@ export default {
     date: new Date(),
     interval: null,
     dropdown: null,
+    keyboardArrow: true,
+    previewImage: null
   }),
   beforeDestroy() {
     clearInterval(this.interval);
@@ -84,11 +93,17 @@ export default {
   computed: {
     name() {
       return this.$store.getters.info.name
+    },
+    srcPreviewImage() {
+      this.previewImage = this.$store.getters.info.image
+      return this.previewImage
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-
+.uploading-image {
+  max-height: 65px;
+}
 </style>

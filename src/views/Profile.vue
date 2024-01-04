@@ -5,6 +5,11 @@
     </div>
 
     <form class="form" @submit.prevent="handleSubmit">
+      <div>
+        <i class="large material-icons" v-if="!previewImage">face</i>
+        <img :src="previewImage" class="uploading-image"  alt="uploading-image" v-else/>
+        <input type="file" accept="image/*" @change=uploadImage($event) id="file-input">
+      </div>
       <div class="input-field">
         <input
             id="name"
@@ -86,7 +91,6 @@ import {useVuelidate} from "@vuelidate/core";
 import localizeFilter from "@/filter/localize.filter";
 import {computed} from "vue";
 import {useHead} from "@vueuse/head";
-
 export default {
   setup: () => (
       useHead({
@@ -107,6 +111,7 @@ export default {
     changedEmailAndPassword: false,
     checkboxButton: false,
     password: '',
+    previewImage: null,
   }),
   validations: {
     name: {
@@ -120,6 +125,9 @@ export default {
     }
   },
   async mounted() {
+    if (this.$store.getters.info.image) {
+    this.previewImage = this.$store.getters.info.image
+    }
     this.newEmail = await this.$store.dispatch('fetchEmail')
     this.currencies = ['UAH', 'USD', 'EUR']
     this.name = this.info.name
@@ -136,10 +144,6 @@ export default {
   methods: {
     localizeFilter,
     ...mapActions(['updateInfo', 'fetchEmail', 'updateEmail', 'fetchAllUsers', 'updatePassword']),
-
-    handleSubmitChangePassword() {
-
-    },
 
     async inputContext() {
       this.changedEmailAndPassword = await this.fetchEmail() !== this.newEmail;
@@ -159,6 +163,7 @@ export default {
         name: this.name,
         currency: this.currency,
         locale: this.isUaLocale ? 'uk_UA' : 'en_US',
+        image: this.previewImage
       }
       try {
         const emailExists = (await this.fetchAllUsers()).find(user =>
@@ -178,6 +183,15 @@ export default {
         if (this.password.length >= 6) {
           await this.checkNewPassword(passwordData)
         }
+
+        // For Upload image in Firebase Storage
+
+        // const file = e.target[0].files[0]
+        // const storage = getStorage();
+        // const storageRef = ref(storage, 'image/' + e.timeStamp + file.name);
+        //
+        // await uploadBytes(storageRef, file)
+
 
         if (await this.fetchEmail() !== this.newEmail) {
 
@@ -200,6 +214,17 @@ export default {
       this.pass = ''
       this.changedEmailAndPassword = false
 
+    },
+    uploadImage(e){
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      console.log(e)
+      reader.readAsDataURL(image);
+      reader.onload = e =>{
+        this.previewImage = e.target.result;
+      };
+
+
     }
   }
 }
@@ -214,6 +239,10 @@ export default {
 
 .label-pass {
   color: red;
+}
+.uploading-image {
+  max-width: 250px;
+  max-height: 250px;
 }
 
 </style>

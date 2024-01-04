@@ -4,8 +4,6 @@
       <h3>{{$filters.localize.localizeFilter('Post history')}}</h3>
     </div>
 
-    <VueBarChart/>
-
     <Loader v-if="loading"/>
 
     <p v-else-if="!records.length" class="center">
@@ -15,6 +13,9 @@
 
 
     <section v-else>
+
+      <VueBarChart/>
+
       <HistoryTable
           :records="items"
       />
