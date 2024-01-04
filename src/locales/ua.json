@@ -80,5 +80,10 @@
   "Too-many-requests error, try again later": "Помилка too-many-requests, спробуйте пізніше",
   "Go": "Далі",
   "We will send a verification code to this email address if they match an existing CRM account.": "Ми надішлемо код підтвердження на цю адресу електронної пошти, якщо вони відповідають існуючому обліковому запису CRM.",
-  "Return": "Назад"
+  "Return": "Назад",
+  "Name of category": "Назва категорії",
+  "Income by category": "Дохід за категоріями",
+  "Total": "всього",
+  "outcome": "Витрати",
+  "income": "Дохід"
 }

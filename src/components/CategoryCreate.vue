@@ -13,7 +13,7 @@
               v-model="title"
               :class="{invalid: v$.title.$dirty && v$.title.required.$invalid}"
           >
-          <label for="name">{{ $filters.localize.localizeFilter('Name') }}</label>
+          <label for="name">{{ $filters.localize.localizeFilter('Name of category') }}</label>
           <span
               v-if="v$.title.$dirty && v$.title.required.$invalid"
               class="helper-text invalid"

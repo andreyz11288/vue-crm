@@ -79,5 +79,10 @@
   "Too-many-requests error, try again later": "Too-many-requests error, try again later",
   "Go": "Go",
   "We will send a verification code to this email address if they match an existing CRM account.": "We will send a verification code to this email address if they match an existing CRM account.",
-  "Return": "Return"
+  "Return": "Return",
+  "Name of category": "Name of category",
+  "Income by category": "Income by category",
+  "Total": "total",
+  "outcome": "Outcome",
+  "income": "Income"
 }
