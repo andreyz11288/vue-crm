@@ -12,8 +12,13 @@
     height: 100vh
 }
 
+.hide-on-small-only, .hide-on-small-and-down {
+    display: block !important;
+}
+
 .auth-card {
-    width: 500px
+    width: 100vw;
+    max-width: 500px;
 }
 
 .auth-submit {
@@ -37,7 +42,8 @@
     padding-top: 5px;
     position: absolute;
     top: 64px;
-    width: 250px;
+    width: 100%;
+    max-width: 250px;
     transition: transform .3s;
     transition: transform .3s, -webkit-transform .3s;
     bottom: 0 !important;
@@ -194,4 +200,9 @@
     font-weight: 400;
     display: block;
     margin-top: 3px;
+}
+@media (max-width: 768px) {
+    .app-content {
+        padding-left: 0;
+    }
 }

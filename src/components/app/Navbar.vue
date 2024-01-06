@@ -59,6 +59,9 @@
 <script>
 export default {
   mounted() {
+    if (window.innerWidth < 768) {
+      this.keyboardArrow = false
+    }
     if (this.$store.getters.info.image) {
       this.previewImage = this.$store.getters.info.image
     }

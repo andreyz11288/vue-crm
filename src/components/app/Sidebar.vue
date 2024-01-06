@@ -7,7 +7,6 @@
     <li class="sidenav-li" v-for="(link, index) in links" :key="index" @click.prevent="active">
       <router-link :to="link.url" active-class="active" exact class="waves-effect waves-orange pointer">{{link.title}}</router-link>
     </li>
-
   </ul>
 </template>
 

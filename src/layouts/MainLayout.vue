@@ -41,6 +41,9 @@ export default {
     loading: true
   }),
   async mounted() {
+    if (window.innerWidth < 768) {
+      this.isOpen = false
+    }
     try {
       if (!Object.keys(this.$store.getters.info).length) {
         await this.$store.dispatch('fetchInfo')
